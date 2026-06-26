@@ -271,7 +271,7 @@ src/main/java/com/ledgercore/
 ## ✉️ Contact
 
 **Purva Thota**
-- 💼 [LinkedIn](https://www.linkedin.com/in/purva/)
+- 💼 [LinkedIn](https://www.linkedin.com/in/purva5/)
 - 📧 [purvathota@gmail.com](mailto:purvathota@gmail.com)
 
 ---
