@@ -1,0 +1,15 @@
+# Docker/Railway profile overrides
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${PGUSER}
+    password: ${PGPASSWORD}
+  data:
+    redis:
+      url: ${REDIS_URL}
+  cache:
+    type: redis
+
+server:
+  port: ${PORT:8080}
+  

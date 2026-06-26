@@ -1,0 +1,30 @@
+# Test configuration: uses H2 in-memory database and disables Redis/Flyway
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+  flyway:
+    enabled: false
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  cache:
+    type: none
+
+
+jwt:
+  secret: test-secret-key-for-unit-testing-at-least-32-chars
+  expiration: 3600
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+server:
+  port: 0

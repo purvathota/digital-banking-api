@@ -1,0 +1,64 @@
+# ============================================
+# LedgerCore — Docker Compose
+# ============================================
+# Usage: docker-compose up --build
+# ============================================
+
+services:
+  # --- PostgreSQL 16 ---
+  postgres:
+    image: postgres:16-alpine
+    container_name: ledgercore-postgres
+    environment:
+      POSTGRES_DB: ledgercore
+      POSTGRES_USER: ${DB_USERNAME:-ledger}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-ledger}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-ledger} -d ledgercore"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # --- Redis 7 ---
+  redis:
+    image: redis:7-alpine
+    container_name: ledgercore-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # --- Spring Boot Application ---
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ledgercore-app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      DB_URL: jdbc:postgresql://postgres:5432/ledgercore
+      DB_USERNAME: ${DB_USERNAME:-ledger}
+      DB_PASSWORD: ${DB_PASSWORD:-ledger}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      JWT_SECRET: ${JWT_SECRET:-change-me-in-production-use-at-least-32-chars-here}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+  redis_data:
