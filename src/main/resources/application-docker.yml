@@ -1,7 +1,7 @@
 # Docker/Railway profile overrides
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL}
+    url: jdbc:postgresql://${PGHOST}:${PGPORT:5432}/${PGDATABASE}
     username: ${PGUSER}
     password: ${PGPASSWORD}
   data:
