@@ -22,6 +22,12 @@
 | **API Docs (JSON)** | [https://digital-banking-api-production-fdad.up.railway.app/v3/api-docs](https://digital-banking-api-production-fdad.up.railway.app/v3/api-docs) |
 | **Deployment** | GitHub Actions → Railway |
 
+<br>
+<div align="center">
+  <img src="swagger-ui-screenshot.png" alt="Swagger UI Preview" width="800" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
+</div>
+<br>
+
 ---
 
 ## 💡 Why I Built This
